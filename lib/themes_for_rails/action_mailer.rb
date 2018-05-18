@@ -7,10 +7,9 @@ module ThemesForRails
 
     included do
       include ThemesForRails::ActionController
-      alias_method_chain :mail, :theme
     end
 
-    def mail_with_theme(headers = {}, &block)
+    def mail(headers = {}, &block)
       theme_opts = headers[:theme] || self.class.default[:theme]
       theme(theme_opts) if theme_opts
 
@@ -20,3 +19,4 @@ module ThemesForRails
   end
 
 end
+ActionMailer.prepend(ThemesForRails::ActionMailer)
